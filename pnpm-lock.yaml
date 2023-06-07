@@ -1,0 +1,13 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@openzeppelin/contracts': ^4.9.1
+
+dependencies:
+  '@openzeppelin/contracts': 4.9.1
+
+packages:
+
+  /@openzeppelin/contracts/4.9.1:
+    resolution: {integrity: sha512-aLDTLu/If1qYIFW5g4ZibuQaUsFGWQPBq1mZKp/txaebUnGHDmmiBhRLY1tDNedN0m+fJtKZ1zAODS9Yk+V6uA==}
+    dev: false

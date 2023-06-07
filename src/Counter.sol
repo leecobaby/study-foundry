@@ -11,4 +11,8 @@ contract Counter {
     function increment() public {
         number++;
     }
+
+    function double() public {
+        number *= 2;
+    }
 }
