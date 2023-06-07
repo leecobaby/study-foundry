@@ -11,6 +11,8 @@ contract CounterTest is Test {
     Helper public h;
     IERC20 public dai;
 
+    event MyEvent(uint256 indexed a, uint256 indexed b, uint256 indexed c);
+
     function setUp() public {
         counter = new Counter();
         counter.setNumber(0);
@@ -76,10 +78,38 @@ contract CounterTest is Test {
         bytes32 hash1 = abi.decode(result, (bytes32));
         assertEq(hash, hash1);
     }
+
+    // 测试事件
+    function testEmit() public {
+        // bool checkTopic1, bool checkTopic2, bool checkTopic3, bytes memory data
+        // 代表需要判断事件的哪些参数，true 代表需要判断，false 代表不需要判断
+        vm.expectEmit(true, false, false, true);
+        emit MyEvent(1, 0, 3);
+        h.emitEvent();
+    }
+
+    // 测试错误
+    function testRevert() public {
+        vm.expectRevert(
+            abi.encodeWithSelector(Helper.CustomError.selector, "Error message")
+        );
+        h.revertFail();
+    }
 }
 
 contract Helper {
+    error CustomError(string message);
+    event MyEvent(uint256 indexed a, uint256 indexed b, uint256 indexed c);
+
     function whoCalled() public returns (address) {
         return msg.sender;
+    }
+
+    function emitEvent() public {
+        emit MyEvent(1, 2, 3);
+    }
+
+    function revertFail() public {
+        revert CustomError("Error message");
     }
 }
